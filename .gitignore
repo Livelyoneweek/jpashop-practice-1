@@ -35,3 +35,7 @@ out/
 
 ### VS Code ###
 .vscode/
+
+### css/ js 제외
+/src/main/resources/static/js/
+/src/main/resources/static/css/

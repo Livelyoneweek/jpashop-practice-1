@@ -3,6 +3,7 @@ package jpabook.jpashop.repository;
 import jpabook.jpashop.domain.item.Item;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import java.util.List;
@@ -21,6 +22,7 @@ public class ItemRepository {
         }
     }
 
+
     public Item findOne(Long id) {
         return em.find(Item.class, id);
     }
@@ -28,4 +30,12 @@ public class ItemRepository {
     public List<Item> findAll() {
         return em.createQuery("select i from Item i", Item.class).getResultList();
     }
+
+    @Transactional
+    void update(Item itemParam) { //itemParam: 파리미터로 넘어온 준영속 상태의 엔티티
+        Item findItem = em.find(Item.class, itemParam.getId()); //같은 엔티티를 조회한다.
+        findItem.setPrice(itemParam.getPrice()); //데이터를 수정한다.
+    }
+
+
 }
